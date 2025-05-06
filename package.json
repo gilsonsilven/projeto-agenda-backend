@@ -1,0 +1,20 @@
+{
+  "name": "projeto-agenda-backend",
+  "version": "1.0.0",
+  "description": "Backend do projeto final da disciplica de DevWebII",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "author": "Gilson Ventura",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.5.0"
+  }
+}
