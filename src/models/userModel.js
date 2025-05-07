@@ -29,10 +29,18 @@ export async function remove(id_user) {
 }
 
 
-export async function getUserById(id) {
+export async function getUserById(id_user) {
     const user = await prisma.users.findUnique({
         where: {
-           id_user:id
+           id_user
+        },
+        select: {
+            id_user: true,
+            name: true,
+            email: true,
+            birth_date: true,
+            phone: true,
+            address: true
         }
     })
     return user

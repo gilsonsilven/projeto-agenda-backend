@@ -1,6 +1,6 @@
 import { remove } from "../../models/userModel.js";
 
-const deleteUser = async(req, res) => {
+export default async function deleteUser(req, res) {
 
     const id = req.body.id_user
     const user = await remove(id)
@@ -11,4 +11,3 @@ const deleteUser = async(req, res) => {
 }
 
 
-export default deleteUser
