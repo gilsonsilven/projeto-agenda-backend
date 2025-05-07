@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/user', userRouter)
-app.use('/contact', contactRouter)
+app.use('/contacts', contactRouter)
 
 
 app.listen(port, () => {

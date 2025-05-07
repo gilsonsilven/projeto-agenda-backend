@@ -3,7 +3,7 @@ import createContact from "../controllers/contact/createContact.js"
 
 const router = express.Router()
 
-router.post('/', createContact)
+router.post('/user/:id_user/', createContact)
 
 
 export default router

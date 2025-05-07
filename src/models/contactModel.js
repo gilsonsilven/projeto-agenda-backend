@@ -4,10 +4,11 @@ const prisma = new PrismaClient()
 
 
 export async function create(contact, id_user) {
-
-
     const result = await prisma.contacts.create({
-        data: {...contact, id_user}
-    })
-    return result
+        data: { ...contact, 
+            id_user: id_user }
+    });
+    return result;
 }
+
+
