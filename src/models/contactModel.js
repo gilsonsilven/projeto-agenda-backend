@@ -31,7 +31,7 @@ export async function getContactById(id_contact) {
 }
 
 
-export async function getList(id_user) {
+export async function getContactList(id_user) {
     
     const result = await prisma.contacts.findMany({
         where: {

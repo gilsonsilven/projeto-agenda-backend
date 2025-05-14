@@ -1,6 +1,7 @@
 import express from "express"
 import userRouter from '../src/routers/userRouter.js'
 import contactRouter from '../src/routers/contactRouter.js'
+import eventRouter from '../src/routers/eventRouter.js'
 
 const app = express()
 const port = 3000
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 
 app.use('/user', userRouter)
 app.use('/contacts', contactRouter)
+app.use('/events', eventRouter)
 
 
 app.listen(port, () => {
