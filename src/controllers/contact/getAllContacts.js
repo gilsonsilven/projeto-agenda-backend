@@ -6,9 +6,7 @@ export default async function getAllContacts(req, res) {
 
     const contacts = await getList(id_user);
 
-    return res.json({
-        contacts
-    })
+    return res.json(contacts)
 
 
 }

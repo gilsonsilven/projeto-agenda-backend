@@ -35,10 +35,11 @@ export async function getList(id_user) {
     
     const result = await prisma.contacts.findMany({
         where: {
-            id_user:id_user
+            id_user
         }
 
     })
+    return result
 }
 
 

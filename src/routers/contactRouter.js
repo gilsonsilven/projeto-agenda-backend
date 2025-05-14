@@ -10,7 +10,8 @@ const router = express.Router()
 router.post('/user/:id_user/', createContact)
 router.delete('/user/:id_user/', deleteContact)
 router.put('/user/:id_user/', editContact)
-router.get('/user/:id_user/', getContact)
 router.get('/user/:id_user/list', getAllContacts)
+router.get('/user/:id_user/', getContact)
+
 
 export default router
