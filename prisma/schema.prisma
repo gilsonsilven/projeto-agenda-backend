@@ -21,16 +21,15 @@ model contacts {
 }
 
 model events {
-  id_event      Int      @id @default(autoincrement())
-  id_user       Int
-  title         String   @db.VarChar(50)
-  description   String?  @db.VarChar(400)
-  event_date    DateTime @db.Date
-  starting_hour DateTime @db.Time(0)
-  ending_hour   DateTime @db.Time(0)
-  address       String?  @db.VarChar(200)
-  contact_names String?  @db.VarChar(500)
-  users         users    @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_users1")
+  id_event         Int      @id @default(autoincrement())
+  id_user          Int
+  title            String   @db.VarChar(50)
+  description      String?  @db.VarChar(400)
+  event_start_date DateTime @db.DateTime(0)
+  event_end_date   DateTime @db.DateTime(0)
+  address          String?  @db.VarChar(200)
+  contact_names    String?  @db.VarChar(500)
+  users            users    @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_users1")
 
   @@index([id_user], map: "fk_events_users1")
 }

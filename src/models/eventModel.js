@@ -21,9 +21,8 @@ export async function getEventById(id_event) {
             id_user: true,
             title: true,
             description: true,
-            event_date: true,
-            starting_hour: true,
-            ending_hour: true,
+            event_start_date: true,
+            event_end_date: true,
             address: true,
             contact_names: true
         }
@@ -65,9 +64,8 @@ export async function remove(id_event) {
             id_user: true,
             title: true,
             description: true,
-            event_date: true,
-            starting_hour: true,
-            ending_hour: true,
+            event_start_date: true,
+            event_end_date: true,
             address: true,
             contact_names: true
         }
