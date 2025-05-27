@@ -2,11 +2,12 @@ import express from "express"
 import userRouter from '../src/routers/userRouter.js'
 import contactRouter from '../src/routers/contactRouter.js'
 import eventRouter from '../src/routers/eventRouter.js'
+import cors from 'cors'
 
 const app = express()
-const port = 3000
+const port = 3001 // mudar porta para não conflitar com o front-end
 
-
+app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
