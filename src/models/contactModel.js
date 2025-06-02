@@ -48,7 +48,14 @@ export async function update(id_contact, contact) {
         where: {
             id_contact
         },
-        data: contact
+        data: contact,
+        select: {
+            name: true,
+            phone: true,
+            birth_date: true,
+            email: true,
+            address: true
+        }
     })
     return result
 }
