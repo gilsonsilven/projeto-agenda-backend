@@ -72,3 +72,13 @@ export async function remove(id_event) {
     })
     return result
 }
+
+
+export async function removeAllEvents(id_user) {
+    const result = await prisma.events.deleteMany({
+        where: {
+            id_user
+        }
+    })
+    return result
+}
