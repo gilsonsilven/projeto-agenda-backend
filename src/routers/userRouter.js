@@ -7,8 +7,8 @@ import editUser from "../controllers/user/editUser.js"
 const router = express.Router()
 
 router.post('/', createUser)
-router.delete('/', deleteUser)
-router.get('/', getUser)
-router.put('/', editUser)
+router.delete('/:id_user', deleteUser)
+router.get('/:id_user', getUser)
+router.put('/:id_user', editUser)
 
 export default router
