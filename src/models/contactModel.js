@@ -78,3 +78,13 @@ export async function remove(id_contact) {
     })
     return result
 }
+
+
+export async function removeAllContacts(id_user) {
+    const result = await prisma.contacts.deleteMany({
+        where: {
+            id_user
+        }
+    })
+    return result
+}
