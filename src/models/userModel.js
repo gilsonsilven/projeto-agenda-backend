@@ -1,6 +1,67 @@
 import { PrismaClient } from "@prisma/client";
+import { z } from "zod";
+import { email } from "zod/v4";
 
 const prisma = new PrismaClient()
+
+
+const userSchema = z.object({
+
+    id_user: z.number({
+        required_error: "O ID é obrigatório",
+        invalid_type_error: "O ID deve ser um número"
+
+    })
+    .positive({ message: "O ID deve ser um número positivo" }),
+    
+    name: z.string({
+        required_error: "O nome é obrigatório",
+        invalid_type_error: "O nome deve conter alguma letra!"
+    })
+    .min(3, { message: "Nome deve ter pelo menos 3 caracteres" })
+    .max(100, { message: "Nome deve ter no máximo 100 caracteres" }),
+
+    password: z.string({
+        required_error: "Senha é obrigatória",
+        invalid_type_error: "Senha deve ser uma string"
+    })
+    .min(6, { message: "Senha deve ter pelo menos 6 caracteres" })
+    .max(30, { message: "Senha deve ter no máximo 30 caracteres" })
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,30}$/, {
+        message: "Senha deve conter pelo menos uma letra maiúscula, uma minúscula e um número"
+    }),
+
+    email: z.string({
+        required_error: "Email é obrigatório",
+        invalid_type_error: "Email deve ser uma string"
+    })
+    .email({ message: "Email inválido" })
+    .max(100, { message: "Email deve ter no máximo 100 caracteres" }),
+
+    birth_date: z.string({
+        invalid_type_error: "Data de nascimento deve ser uma data válida",
+
+    }),
+
+    phone: z.string({
+        required_error: "Telefone é obrigatório!",
+    })
+    .min(10, { message: "Telefone deve ter pelo menos 10 número!" })
+    .max(11, { message: "Telefone deve ter no máximo 11 números!" })
+    .regex(/^\d+$/, { message: "Telefone deve conter apenas números}!"}),
+
+    address: z.string({
+        invalid_type_error: "Endereço deve conter alguma palavra!"
+    })
+    .max(300, { message: "Endereço deve ter no máximo 300 caracteres" })
+})
+
+export const userValidation = (user, partial = null) => {
+    if(partial) {
+        return userSchema.partial(partial).safeParse(user)
+    }
+    return userSchema.safeParse(user)
+}
 
 
 export async function create(user) {
