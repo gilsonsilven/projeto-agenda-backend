@@ -1,13 +1,31 @@
-import { create } from "../../models/eventModel.js";
+import { create, eventValidation } from "../../models/eventModel.js";
 
-export default async function createEvent(req, res) {
-    const event = req.body;
-    const id_user = +req.params.id_user;
+export default async function createEvent(req, res, next) {
 
-    const result = await create(event, id_user);
+    try {
+        const event = req.body;
+        const id_user = +req.params.id_user;
+        event.id_user = id_user;
 
-    return res.json({
-        message: "Evento criado com sucesso",
-        event: result
-    });
+        const { success, error, data } = eventValidation(event, { id_event: true});
+
+        if(!success){
+            return res.status(400).json({
+                message: 'Erro ao cadastrar evento, verifique os dados!',
+                errors: error.flatten().fieldErrors
+            })
+        }    
+
+        const result = await create(data, data.id_user);
+
+        return res.json({
+            message: "Evento criado com sucesso!",
+            event: result
+        });
+    }
+    catch(error) {
+        return next(error);
+    }
+
+
 }
