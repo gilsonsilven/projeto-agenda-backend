@@ -1,14 +1,35 @@
-import { removeAllContacts } from "../../models/contactModel.js";
+import { removeAllContacts, contactValidation } from "../../models/contactModel.js";
 
-export default async function deleteAllContacts(req, res) {
+export default async function deleteAllContacts(req, res, next) {
 
-    const id_user = +req.params.id_user;
+    try {
 
-    const contacts = await removeAllContacts(id_user);
+        const contact = {id_user: +req.params.id_user};
 
-    console.log(contacts)
+        const {success, error, data} = contactValidation(contact, {id_contact: true, name: true, phone: true, birth_date: true, email: true, address: true});
 
-    return res.json(contacts)
+        if(!success){
+            return res.status(400).json({
+                message: "Erro ao deletar contatos!",
+                errors: error.flatten().fieldErrors
+            })
+        }
 
+        const result = await removeAllContacts(data.id_user);
 
+        if(!result){
+            return res.status(404).json({
+                error: 'Contatos não encontrados'
+            })
+        }        
+
+        return res.json({
+            message: "Contatos deletados com sucesso!", 
+            contacts: result
+        })
+
+    }
+    catch(error) {
+        next(error);
+    }
 }

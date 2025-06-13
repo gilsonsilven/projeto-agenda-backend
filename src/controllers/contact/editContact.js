@@ -1,15 +1,35 @@
-import { update } from "../../models/contactModel.js";
+import { update, contactValidation } from "../../models/contactModel.js";
 
 
-export default async function editContact(req, res) {
+export default async function editContact(req, res, next) {
 
-    const contact = req.body;
+    try {
+        const contact = req.body;
+        contact.id_contact = +req.body.id_contact;
 
-    const {id_contact, ...data} = contact;
+        const { success, error, data} = contactValidation(contact, {id_user: true})
 
-    const result = await update(id_contact, data)
+        if(!success){
+            return res.status(400).json({
+                message: "Erro ao editar contato!",
+                errors: error.flatten().fieldErrors
+            })
+        }
 
-    return res.json({
-        result
-    })
+        const result = await update(data.id_contact, data)
+
+        if(!result){
+            return res.status(404).json({
+                error: 'Contato não encontrado'
+            })
+        }
+
+        return res.json({
+            message: "Contato atualizado com sucesso",
+            event: result
+        })
+    }
+    catch(error) {
+        next(error);
+    }
 }

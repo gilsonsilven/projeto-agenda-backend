@@ -1,13 +1,31 @@
-import { create } from "../../models/contactModel.js";
+import { create, contactValidation } from "../../models/contactModel.js";
 
-export default async function createContact(req, res) {
-    const contact = req.body;
-    const id_user = +req.params.id_user;
+export default async function createContact(req, res, next) {
 
-    const result = await create(contact, id_user);
+    try {
+        const contact = req.body;
+        const id_user = +req.params.id_user;
+        contact.id_user = id_user;
 
-    return res.json({
-        message: "Contato criado com sucesso",
-        contact: result
-    });
+    
+
+        const { success, error, data } = contactValidation(contact, { id_contact: true});
+
+        if(!success){
+            return res.status(400).json({
+                message: 'Erro ao cadastrar contato, verifique os dados!',
+                errors: error.flatten().fieldErrors
+            })
+        }    
+
+        const result = await create(data, data.id_user);
+
+        return res.json({
+            message: "Contato criado com sucesso!",
+            contact: result
+        });
+    }
+    catch(error) {
+        return next(error);
+    }
 }
