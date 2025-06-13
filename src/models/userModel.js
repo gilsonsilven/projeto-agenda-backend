@@ -1,9 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
-import { email } from "zod/v4";
+
 
 const prisma = new PrismaClient()
-
 
 const userSchema = z.object({
 
@@ -18,7 +17,7 @@ const userSchema = z.object({
         required_error: "O nome é obrigatório",
         invalid_type_error: "O nome deve conter alguma letra!"
     })
-    .min(3, { message: "Nome deve ter pelo menos 3 caracteres" })
+    .min(2, { message: "Nome deve ter pelo menos 2 caracteres" })
     .max(100, { message: "Nome deve ter no máximo 100 caracteres" }),
 
     password: z.string({
@@ -39,9 +38,10 @@ const userSchema = z.object({
     .max(100, { message: "Email deve ter no máximo 100 caracteres" }),
 
     birth_date: z.string({
-        invalid_type_error: "Data de nascimento deve ser uma data válida",
-
-    }),
+        invalid_type_error: "Data de nascimento deve ser uma data válida"
+    })
+    .optional()
+    .nullable(),
 
     phone: z.string({
         required_error: "Telefone é obrigatório!",
@@ -54,6 +54,8 @@ const userSchema = z.object({
         invalid_type_error: "Endereço deve conter alguma palavra!"
     })
     .max(300, { message: "Endereço deve ter no máximo 300 caracteres" })
+    .optional()
+    .or(z.literal(""))
 })
 
 export const userValidation = (user, partial = null) => {

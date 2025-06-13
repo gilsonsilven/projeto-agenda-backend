@@ -23,7 +23,9 @@ const eventSchema = z.object({
     .max(50, { message: "Título deve ter no máximo 50 caracteres" }),
 
     description: z.string({})
-    .max(400, { message: "Descrição deve ter no máximo 500 caracteres" }),
+    .max(400, { message: "Descrição deve ter no máximo 500 caracteres" })
+    .optional()
+    .or(z.literal("")),
 
     event_start_date: z.string({
         required_error: "A data de início do evento é obrigatória"
@@ -35,11 +37,15 @@ const eventSchema = z.object({
 
     address: z.string({
     })
-    .max(300, { message: "Endereço deve ter no máximo 300 caracteres" }),
+    .max(300, { message: "Endereço deve ter no máximo 300 caracteres" })
+    .optional()
+    .or(z.literal("")),
 
     contact_names: z.string({
         invalid_type_error: "Os nomes de contato devem ser uma string!"
     })
+    .optional()
+    .or(z.literal(""))
 })
 
 export const eventValidation = (event, partial = null) => {
