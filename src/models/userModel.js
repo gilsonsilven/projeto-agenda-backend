@@ -93,7 +93,7 @@ export async function remove(id_user) {
 
 
 export async function getUserById(id_user) {
-    const user = await prisma.users.findUnique({
+    const result = await prisma.users.findUnique({
         where: {
            id_user
         },
@@ -106,9 +106,17 @@ export async function getUserById(id_user) {
             address: true
         }
     })
-    return user
+    return result
 }
 
+export async function getUserByEmail(email) {
+    const result = await prisma.users.findUnique({
+        where: {
+           email
+        }
+    })
+    return result
+}
 
 export async function update(id_user, user) 
 {

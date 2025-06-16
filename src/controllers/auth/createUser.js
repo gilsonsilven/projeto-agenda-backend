@@ -1,4 +1,5 @@
 import { create, userValidation } from "../../models/userModel.js"
+import bcrypt from "bcrypt";
 
 export default async function createUser (req, res, next) {
 
@@ -15,7 +16,15 @@ export default async function createUser (req, res, next) {
             })
         }    
 
+        data.password = bcrypt.hashSync(data.password, 10)
+
         const result = await create(data)
+
+        if(!result){
+            return res.status(500).json({
+                message: "Erro ao criar usuário!"
+            })
+        }
 
         return res.json({
             message: "Usuário criado com sucesso",
@@ -25,6 +34,7 @@ export default async function createUser (req, res, next) {
 
     }
     catch(error) {
+       
         return next(error);
     }
 }
