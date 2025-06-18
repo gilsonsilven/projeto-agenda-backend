@@ -10,7 +10,7 @@ export default async function loginController(req, res, next) {
     try {
 
         const user = req.body
-        console.log(user);
+
         const { success, error, data } = userValidation(user, {id_user: true, name: true, phone: true, birth_date: true, address: true});
 
         if(!success){
@@ -31,7 +31,7 @@ export default async function loginController(req, res, next) {
 
         const passwordIsValid = bcrypt.compareSync(data.password, result.password);
 
-        console.log(passwordIsValid);
+
 
         if(!passwordIsValid){
             return res.status(400).json({
