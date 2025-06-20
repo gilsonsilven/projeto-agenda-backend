@@ -67,6 +67,12 @@ export async function create(contact, id_user) {
     return result;
 }
 
+export async function createManyContacts(contacts) {
+    const result = await prisma.contacts.createMany({
+        data: contacts
+    });
+    return result;
+}
 
 export async function getContactList(id_user) {
     

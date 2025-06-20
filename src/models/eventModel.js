@@ -63,6 +63,12 @@ export async function create(event, id_user) {
     return result;
 }
 
+export async function createManyEvents(events) {
+    const result = await prisma.events.createMany({
+        data: events
+    });
+    return result;
+}
 
 export async function getEventList(id_user) {
     
