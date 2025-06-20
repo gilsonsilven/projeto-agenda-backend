@@ -3,6 +3,7 @@ import deleteUser from "../controllers/user/deleteUser.js"
 import getUser from "../controllers/user/getUser.js"
 import editUser from "../controllers/user/editUser.js"
 
+
 const router = express.Router()
 
 //router.post('/', createUser)

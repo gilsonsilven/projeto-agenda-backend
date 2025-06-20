@@ -3,6 +3,7 @@ import userRouter from '../src/routers/userRouter.js'
 import contactRouter from '../src/routers/contactRouter.js'
 import eventRouter from '../src/routers/eventRouter.js'
 import authRouter from '../src/routers/authRouter.js'
+import restoreRouter from '../src/routers/restoreRouter.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
@@ -21,6 +22,7 @@ app.use('/user', userRouter)
 app.use('/contacts', contactRouter)
 app.use('/events', eventRouter)
 app.use('/auth', authRouter)
+app.use('/restore', restoreRouter)
 
 
 app.listen(port, () => {
