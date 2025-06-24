@@ -9,7 +9,7 @@ const logoutController = async (req, res, next) => {
             return res.status.json({ message: "Você já está deslogado!" })
         }
         const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET)
-        // remover session from database
+ 
         await remove(decoded.id_session, decoded.id_user)
         return res.json({ message: "Logout realizado com sucesso!"})
     } catch (error) {
