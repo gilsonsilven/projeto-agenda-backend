@@ -16,9 +16,9 @@ export default async function createUser (req, res, next) {
             })
         }    
 
-        data.password = bcrypt.hashSync(data.password, 10)
+        data.password = bcrypt.hashSync(data.password, 10);
 
-        const result = await create(data)
+        const result = await create(data);
 
         if(!result){
             return res.status(500).json({
