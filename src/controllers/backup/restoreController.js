@@ -14,7 +14,10 @@ export default async function restoreController(req, res, next) {
         for(const contact of backupData.contacts) {
             
             if(contact.id_user !== id_user) {
-                throw new Error("ID do usuário não corresponde ao ID nos contatos do backup.");
+                return res.json({
+                    message: "Erro",
+                    errors: {Erro: ["ID do usuário não corresponde ao ID nos contatos do backup."]}
+                })
             }
 
             const { success, error, data } = contactValidation(contact, { id_contact: true});
@@ -32,7 +35,10 @@ export default async function restoreController(req, res, next) {
         for(const event of backupData.events) {
 
             if(event.id_user !== id_user) {
-                throw new Error("ID do usuário não corresponde ao ID nos eventos do backup.");
+                return res.json({
+                    message: "Erro",
+                    errors: {Erro: ["ID do usuário não corresponde ao ID nos eventos do backup."]}
+                })
             }
 
             const { success, error, data } = eventValidation(event, { id_event: true});

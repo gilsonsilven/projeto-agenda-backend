@@ -20,7 +20,7 @@ export default async function editContact(req, res, next) {
 
         if(!result){
             return res.status(404).json({
-                error: 'Contato não encontrado'
+                errors: {Erro: ['Contato não encontrado']}
             })
         }
 

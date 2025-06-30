@@ -21,7 +21,7 @@ export default async function editEvent(req, res, next) {
 
         if(!result){
             return res.status(404).json({
-                error: 'Evento não encontrado'
+                errors: {Erro: ['Evento não encontrado']}
             })
         }
 

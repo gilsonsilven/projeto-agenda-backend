@@ -17,21 +17,21 @@ const contactSchema = z.object({
     .positive({ message: "O ID do usuário deve ser um número positivo" }),
 
     name: z.string({
-        required_error: "O nome é obrigatório",
+        required_error: "O nome é obrigatório!",
         invalid_type_error: "O nome deve conter alguma letra!"
     })
-    .min(1, { message: "Nome deve ter pelo menos 1 caractere" })
-    .max(100, { message: "Nome deve ter no máximo 100 caracteres" }),
+    .min(1, { message: "Nome deve ter pelo menos 1 caractere!" })
+    .max(100, { message: "Nome deve ter no máximo 100 caracteres!" }),
 
     phone: z.string({
         required_error: "O telefone é obrigatório! "
     })
-    .min(10, { message: "Telefone deve ter pelo menos 10 caracteres" })
-    .max(11, { message: "Telefone deve ter no máximo 15 caracteres" })
+    .min(10, { message: "Telefone deve ter pelo menos 10 caracteres!" })
+    .max(11, { message: "Telefone deve ter no máximo 15 caracteres!" })
     .regex(/^\d+$/, { message: "Telefone deve conter apenas números!"}),
 
     birth_date: z.string({
-        invalid_type_error: "Data de nascimento deve ser uma data válida",        
+        invalid_type_error: "Data de nascimento deve ser uma data válida!",        
     })
     .optional()
     .nullable(),
@@ -39,7 +39,7 @@ const contactSchema = z.object({
     email: z.string({
     })
     .email({ message: "Email inválido!" })
-    .max(100, { message: "Email deve ter no máximo 100 caracteres" })
+    .max(100, { message: "Email deve ter no máximo 100 caracteres!" })
     .optional()
     .or(z.literal("")),
 

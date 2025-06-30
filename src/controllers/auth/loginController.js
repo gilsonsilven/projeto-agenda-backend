@@ -13,32 +13,29 @@ export default async function loginController(req, res, next) {
 
         const { success, error, data } = userValidation(user, {id_user: true, name: true, phone: true, birth_date: true, address: true});
 
+
         if(!success){
             return res.status(400).json({
-                message: "Erro ao validar os dados dE login!",
+                message: "Erro ao validar os dados de login!",
                 errors: error.flatten().fieldErrors
             })
         }
-
 
         const result = await getUserByEmail(data.email)        
 
         if(!result){
             return res.status(400).json({
-                message: "Usuário não encontrado",
+                errors: {Erro: ['Usuário não encontrado']}
             })
         }
 
         const passwordIsValid = bcrypt.compareSync(data.password, result.password);
 
-
-
         if(!passwordIsValid){
             return res.status(400).json({
-                message: "Senha não incorreta!"
+                errors: {Erro: ["Senha incorreta!"]}
             })
         }
-
 
         const payload = {
             id: result.id_user,
