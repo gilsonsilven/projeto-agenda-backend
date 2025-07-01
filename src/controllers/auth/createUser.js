@@ -6,6 +6,8 @@ export default async function createUser (req, res, next) {
     try{
         const user = req.body
 
+        console.log(user)
+        
         const { success, error, data} = userValidation(user, {id_user: true})
         
 

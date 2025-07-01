@@ -34,7 +34,7 @@ const userSchema = z.object({
         required_error: "Email é obrigatório!",
         invalid_type_error: "Email deve ser uma string!"
     })
-    //.email({ message: "Email inválido!" })
+    .email({ message: "Email inválido!" })
     .max(100, { message: "Email deve ter no máximo 100 caracteres" }),
 
     birth_date: z.string({
